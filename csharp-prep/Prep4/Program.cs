@@ -20,11 +20,12 @@ class Program
             number_string = Console.ReadLine();
             number_int = int.Parse(number_string);//parse to an int
 
+
         }
         
-        int sum_numbers = numbers.Sum(); 
-        double ave_numbers = numbers.Average();
-        int max_numbers = numbers.Max();
+        int sum_numbers = numbers.Sum(); //using the .sum method on the list
+        double ave_numbers = numbers.Average();//using the .average method on the list
+        int max_numbers = numbers.Max();//usig the .Max method on the list
         int minPosNum = 999999999;//setting a max number to start the loop
         foreach (int number in numbers)// iterating through the loop
         {
@@ -35,11 +36,17 @@ class Program
 
         }
         
-
         Console.WriteLine($"The sum is: {sum_numbers}");
         Console.WriteLine($"The average is: {ave_numbers}");
         Console.WriteLine($"The largest number is: {max_numbers}");
         Console.WriteLine($"The smallest positive number is: {minPosNum}");
-                
+       
+        numbers.Sort();//sorting the list into ascending order
+        Console.WriteLine("The sorted list is: ");
+        foreach (int num in numbers)    //iterating through the numbers list to display the sorted list
+        {
+            Console.WriteLine(num);
+
+        }   
      }
 }
