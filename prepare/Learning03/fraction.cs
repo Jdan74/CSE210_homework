@@ -10,6 +10,8 @@ private int _bottom;
 // constructors//remember that return types are left EMPTY on constructors
 public Fraction()
 {
+    _top = 1;
+    _bottom =1;
 }
 
 
@@ -51,26 +53,22 @@ public void SetBottom(int bottom)//public so it's accessible, returns nothing, a
 
 
 
-//methods
+//methods -- I had to Correct this as I initially was returning nothing and relying on the method to print to console but this was incorrect as they are to return a string and a double only
 
-public void GetFractionString()
+public string GetFractionString()
+
 {
-
-Console.WriteLine($"{_top}/{_bottom}");
-
+    string text = ($"{_top}/{_bottom}");
+    return text;
 }
 
-public void GetDecimalValue()// (https://stackoverflow.com/questions/1043164/why-does-decimal-divideint-int-work-but-not-int-int - int is an integer type; dividing two ints performs an 
-//integer division, i.e. the fractional part is truncated since it can't be stored in the result type 
-//(also int!). Decimal, by contrast, has got a fractional part. By invoking Decimal.Divide, your int arguments
-// get implicitly converted to Decimals. You can enforce non-integer division on int arguments by explicitly 
-//casting at least one of the arguments to a floating-point type, e.g.:)
+public double GetDecimalValue()// 
 
 {
     double result = (double) _top / _bottom;
-    Console.WriteLine(result);
+    return result;
     
-    //Console.WriteLine(Decimal.Divide(_top,_bottom)); This method also works
+    //(Decimal.Divide(_top,_bottom)); This method also works
 }
 
 
