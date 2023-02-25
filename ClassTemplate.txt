@@ -1,0 +1,55 @@
+
+class Activity
+{//member variables___________________________________________________________________
+    protected string _activityName;
+    protected string _activityInstruction;
+    protected int _seconds;
+
+//Constructors_________________________________________________________________________
+
+    public Activity()
+    {
+    }
+    public Activity(string activityName, string activityInstruction)
+    {
+        _activityName = activityName;
+        _activityInstruction = activityInstruction;
+    }
+    
+//getters and setters______________________________________________________________________________
+
+    public string GetSeconds()//may not need this
+    {
+        return _seconds.ToString();//can't return this unless to string
+    }
+    public void SetSeconds(int seconds)//will need this
+    {
+        _seconds = seconds;
+    }
+     public string GetActivityName()//may not need this
+    {
+         return _activityName;
+     }
+     public void SetAcivityName(string activityName)//may not need this
+     {
+         _activityName = activityName;
+    }
+
+//Methods______________________________________________________________________
+
+public void ThisIsAMethod(string name, int number)//random example
+{
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
