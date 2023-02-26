@@ -20,7 +20,7 @@ class Program
 
         if (choice == "1")
         {
-            BreathingActivity breathingActivity = new BreathingActivity("Breathing", "This activity will help you relax by teaching you how to Box breath.  Box Breathing can help reduce heart rate, blood pressure and stress.  Clear your mind and follow the breathing instructions.");
+            BreathingActivity breathingActivity = new BreathingActivity("Breathing", "This activity will help you relax by teaching you how to Box breath.  Box Breathing can help reduce heart rate, blood pressure and stress.  It is called box breathing because just like the four equal sides of a box, you will inhale, hold your breath, exhale, then again hold, all for the same interval of time.  4 seconds is a typical interval, but you could go as long as 6 or as short as 2.");
             breathingActivity.RunBreathingActivity(); 
             //breathingActivity.RunActivity(breathingActivity);//was trying to call a method from my parent class that would accept the child class as the parameter, but couldn't get this to work properly
         }
