@@ -13,7 +13,7 @@ class Program
         int totalPoints = 0;//to keep track of total points.  we'll save this as index 0 of our list
         List<Goal> listOfGoals = new List<Goal>();//instantiating a new list of Goal type to populate 
         Console.Clear();
-        
+    
 
         while (choice != "9")
         {
@@ -152,7 +152,7 @@ class Program
                     //totalPoints = totalPoints + goal.DisplayPointValue();//add the point value of the activity to our totalpoints variable
             Console.WriteLine("The Goals are:");
             int i = 0;
-            foreach (var goal in listOfGoals)//writing our list one by one
+            foreach (Goal goal in listOfGoals)//writing our list one by one
             {
                 Console.WriteLine($"{i+1}. {goal.GetName()}");// and for each item add we'll number them and then call the GetName() method on each one
                 i++;//increase each time through the loop

@@ -1,0 +1,6 @@
+class HammerToes : Pathology
+{
+
+
+
+}

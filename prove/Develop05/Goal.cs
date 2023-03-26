@@ -74,7 +74,7 @@ virtual public void CreateGoalEntry()//this method will create a goal but we can
     _description = Console.ReadLine();
     Console.WriteLine("What is the amount of points associated with this goal?");
    _pointValue = int.Parse(Console.ReadLine());
-   _isComplete = false;
+   _isComplete = false;//this isn't realy necessary here
    
 }
 
