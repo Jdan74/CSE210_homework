@@ -94,9 +94,9 @@ public void CreateShoe()
     //Shoe shoe = new Shoe();// new shoe
 
     Console.WriteLine("Brand:");
-    _brand = Console.ReadLine();
+    _brand = Console.ReadLine().Trim();
     Console.WriteLine("Model:");
-    _model = Console.ReadLine();
+    _model = Console.ReadLine().Trim();
     Console.WriteLine("Size:");    
     _sizeShoe = float.Parse(Console.ReadLine());
     Console.WriteLine("Width:");

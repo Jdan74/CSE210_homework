@@ -71,9 +71,9 @@ Console.Clear();
 Console.WriteLine("Let's get your basic info...");
 Console.WriteLine();
 Console.WriteLine("What is your first name?");
-_nameFirst = Console.ReadLine();
+_nameFirst = Console.ReadLine().Trim();
 Console.WriteLine("What is your last name?");
-_nameLast = Console.ReadLine();
+_nameLast = Console.ReadLine().Trim();
 //then create our foot size
 _footProfile.CreateFootSizeProfile();
 
@@ -282,6 +282,12 @@ public void EditProfile()
     }
 
 }
+public string CreateNewUserFileEntry()
+
+{
+return $"\n{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot},{_footProfile.PathFlatFootFoot},{_footProfile.PathHeelPainFoot},{_footProfile.PathHammerToeFoot}";
+}
+
 public string CreateUserFileEntry()
 
 {

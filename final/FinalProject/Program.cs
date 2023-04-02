@@ -63,7 +63,7 @@ class Program
                         userFilePath = "users.txt";
                         using (StreamWriter writer = new StreamWriter(userFilePath, true))
                         {
-                            writer.WriteLine(newUser.CreateUserFileEntry());
+                            writer.WriteLine(newUser.CreateNewUserFileEntry());//this method will insert new line and add it to the end of the list that is already up
                         }
 
 

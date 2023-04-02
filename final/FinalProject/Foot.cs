@@ -15,11 +15,11 @@ public Foot ()// we need all these objects to instantiate as soon as any Foot ob
 {
     _pathListAllPossible = new List<Pathology>();//inst a empty list to hold all possible pathology
 
-    Pathology _pathFlatFootFoot = new FlatFoot();//adding each pathology type to our list of all possible
+    _pathFlatFootFoot = new FlatFoot();//adding each pathology type to our list of all possible
     _pathListAllPossible.Add(_pathFlatFootFoot);
-    Pathology _pathHeelPainFoot = new HeelPain();
+    _pathHeelPainFoot = new HeelPain();
     _pathListAllPossible.Add(_pathHeelPainFoot);
-    Pathology _pathHammerToeFoot = new HammerToes();
+    _pathHammerToeFoot = new HammerToes();
     _pathListAllPossible.Add(_pathHammerToeFoot); 
     
     _pathListFoot = new List<Pathology>();// inst an empty list to hold foot specife pathology 
@@ -62,7 +62,7 @@ public float WidthMeasuredFoot
 public bool PathFlatFootFoot
 {
     get { return _pathFlatFootFoot.PathHas;}
-    set { _pathFlatFootFoot.PathHas = value;}
+    set {_pathFlatFootFoot.PathHas = value;}
 }
 public bool PathHeelPainFoot
 {
@@ -93,7 +93,7 @@ public void CreateFootSizeProfile()
     Console.WriteLine("What is the measured length of your foot from heel to tip of longest toe in cm?");
     _lengthMeasuredFoot = float.Parse(Console.ReadLine());
     Console.WriteLine("What is the measured Width of your foot at the the widest point in cm?");
-    _widthMeasuredFoot = int.Parse(Console.ReadLine());
+    _widthMeasuredFoot = float.Parse(Console.ReadLine());
 }
 
 public void DisplayFootProfile()//will display a foot profile
