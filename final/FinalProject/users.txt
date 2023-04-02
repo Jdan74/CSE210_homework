@@ -1,0 +1,7 @@
+hix,joel,27, 10, False, True, True
+Johnson, Robert, 26.8, 9.5, True, False, True
+Garcia, Michael, 27.3, 10, False, True, False
+Smith, David, 26, 9.2, False, False, True
+Lee, Andrew, 28, 10.5, True, False, False
+Nguyen, Peter, 27.5, 10, False, True, True
+Taylor, William, 26.5, 9.5, False, True, False

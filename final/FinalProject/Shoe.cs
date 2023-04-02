@@ -4,14 +4,14 @@ class Shoe
     //member variables___________________________________________________________________
     private string _brand;
     private string _model;
-    private int _size;
-    private int _width;
+    private float _sizeShoe;
+    private string _widthShoe;
 
-    private int _lengthMeasured;
-    private int _widthMeasured;
-    private bool _pathFlatFoot;
-    private bool _pathHeelPain;
-   private bool _pathHammerToe;
+    private float _lengthMeasuredShoe;
+    private float _widthMeasuredShoe;
+    private bool _pathFlatFootShoe;
+    private bool _pathHeelPainShoe;
+   private bool _pathHammerToeShoe;
 
 
 //Constructors_________________________________________________________________________
@@ -19,56 +19,74 @@ class Shoe
     public Shoe()
     {
     }
-    public Shoe(string brand, string model, int size, int width, int lengthMeasured, int widthMeasured, bool pathFlatFoot, bool pathHeelPain, bool pathHammerToe)
+    public Shoe(string brand, string model, float sizeShoe, string widthShoe, float lengthMeasuredShoe, float widthMeasuredShoe, bool pathFlatFootShoe, bool pathHeelPainShoe, bool pathHammerToeShoe)
     {
         _brand = brand;
         _model = model;
-        _size = size;
-        _width = width;
-        _lengthMeasured = lengthMeasured;
-        _widthMeasured = widthMeasured;
-        _pathFlatFoot = pathFlatFoot;
-        _pathHeelPain = pathHeelPain;
-        _pathHammerToe = pathHammerToe;
+        _sizeShoe = sizeShoe;
+        _widthShoe = widthShoe;
+        _lengthMeasuredShoe = lengthMeasuredShoe;
+        _widthMeasuredShoe = widthMeasuredShoe;
+        _pathFlatFootShoe = pathFlatFootShoe;
+        _pathHeelPainShoe = pathHeelPainShoe;
+        _pathHammerToeShoe = pathHammerToeShoe;
 
     }
     
-//properties and getters and setters - I read about and decided to try using properties insead of explicit getters and setters to make this easier______________________________________________________________________________
-//not sure if I'll really need this much though if I keep things flowing through the methods as much as possible
-    public string Brand {get; set;}// this is using the short hand auto-implemented getters and setters method. This method will automatically create the getters and setters knowing the the underscore and first letters and the only things changed
-    public string Model {get; set;}
-    public int Size {get; set;}
-    public int Width {get; set;}
-    public int LengthMeasured {get; set;}
-    public int WidthMeasured {get; set;}
-    public bool PathHammerToe {get; set;}
-    public bool PathHeelPain {get; set;}
-    public bool PathFlatFoot {get; set;}
-
-
-    // public string GetbrandName()//may not need this
-    // {
-    //     return _brandName;//can't return this unless to string
-    // }
-    // public void SetSeconds(int seconds)//will need this
-    // {
-    //     _seconds = seconds;
-    // }
-    //  public string GetShoeName()//may not need this
-    // {
-    //      return _ShoeName;
-    //  }
-    //  public void SetAcivityName(string ShoeName)//may not need this
-    //  {
-    //      _ShoeName = ShoeName;
-    //      return _seconds.ToString();//can't return this unless to string
-    // }
+//properties and getters and setters - 
+    public string Brand//here I'm trying a different notation that can be used to create a property and then use the property to directly access the private member variable. I like this method as it is easier to type
+    {
+        get => _brand;
+        set => _brand = value;
+    }
+    
+    public string Model
+     {
+        get => _brand;
+        set => _brand = value;
+    }
+    public float SizeShoe 
+     {
+        get => _sizeShoe;
+        set => _sizeShoe = value;
+    }
+    public string WidthShoe
+     {
+        get => _widthShoe;
+        set => _widthShoe = value;
+    }
+    public float LengthMeasuredShoe
+     {
+        get => _lengthMeasuredShoe;
+        set => _lengthMeasuredShoe = value;
+    }
+    public float WidthMeasuredShoe
+     {
+        get => _widthMeasuredShoe;
+        set => _widthMeasuredShoe = value;
+    }
+    public bool PathHammerToeShoe
+     {
+        get => _pathHammerToeShoe;
+        set => _pathHammerToeShoe = value;
+    }
+    public bool PathHeelPainShoe
+     {
+        get => _pathHeelPainShoe;
+        set => _pathHeelPainShoe = value;
+    }
+    public bool PathFlatFootShoe
+    {
+        get => _pathFlatFootShoe;
+        set => _pathFlatFootShoe = value;
+    }
+    
 
 //Methods______________________________________________________________________
 
 public void DisplayShoe()
 {
-    Console.WriteLine(($"Brand: {_brand}, Model: {_model}, Size: {_size}, Width: {_width}, Measured Length: {_lengthMeasured}, Measured Width: {_widthMeasured}, FlatFoot approved: {_pathFlatFoot}, Heel Pain approved: {_pathHeelPain}, Hammertoe approved: {_pathHammerToe} "));
+    Console.WriteLine(($"Brand: {_brand}, Model: {_model}, Size: {_sizeShoe}, Width: {_widthShoe}, Measured Length: {_lengthMeasuredShoe}, Measured Width: {_widthMeasuredShoe}, FlatFoot approved: {_pathFlatFootShoe}, Heel Pain approved: {_pathHeelPainShoe}, Hammertoe approved: {_pathHammerToeShoe} "));
 }
 
 public void CreateShoe()
@@ -80,32 +98,32 @@ public void CreateShoe()
     Console.WriteLine("Model:");
     _model = Console.ReadLine();
     Console.WriteLine("Size:");    
-    _size = int.Parse(Console.ReadLine());
+    _sizeShoe = float.Parse(Console.ReadLine());
     Console.WriteLine("Width:");
-    _width = int.Parse(Console.ReadLine());
+    _widthShoe = Console.ReadLine();
     Console.WriteLine("Measured Length:");
-    _lengthMeasured = int.Parse(Console.ReadLine());
+    _lengthMeasuredShoe = float.Parse(Console.ReadLine());
     Console.WriteLine("Measured Width:");
-    _widthMeasured = int.Parse(Console.ReadLine());
+    _widthMeasuredShoe = float.Parse(Console.ReadLine());
     Console.WriteLine("Flat Foot Approved? Enter y for yes or any other key for no");
     string answer1 = Console.ReadLine().ToLower();
         if (answer1 == "y")//since we default all shoes to NO on these values, we should only need a Y to change.
         {
-            _pathFlatFoot = true;
+            _pathFlatFootShoe = true;
         }
         
     Console.WriteLine("Heel Pain Approved? Enter y for yes or any other key for no");
     string answer2 = Console.ReadLine().ToLower();
         if (answer2 == "y")//since we default all shoes to NO on these values, we should only need a Y to change.
         {
-            _pathHeelPain = true;
+            _pathHeelPainShoe = true;
         }
             
     Console.WriteLine("Hammer Toe Approved? Enter y for yes or any other key for no");
     string answer3 = Console.ReadLine().ToLower();
         if (answer3 == "y")//since we default all shoes to NO on these values, we should only need a Y to change.
         {
-            _pathHammerToe = true;
+            _pathHammerToeShoe = true;
         }
 
         
@@ -114,7 +132,7 @@ public void CreateShoe()
 }
 public string CreateShoeFileEntry()
 {
-    return  $"{_brand},{_model},{_size},{_width},{_lengthMeasured},{_widthMeasured},{_pathFlatFoot},{_pathHeelPain},{_pathHammerToe}";
+    return  $"{_brand},{_model},{_sizeShoe},{_widthShoe},{_lengthMeasuredShoe},{_widthMeasuredShoe},{_pathFlatFootShoe},{_pathHeelPainShoe},{_pathHammerToeShoe}";
 }
 public void EditShoe()
 {
@@ -127,13 +145,13 @@ public void EditShoe()
             
             Console.WriteLine($"1. Brand: {_brand}");//could use the properties instead
             Console.WriteLine($"2. Model: {_model}");
-            Console.WriteLine($"3. Size: {_size}");
-            Console.WriteLine($"4. Width: {_width}");
-            Console.WriteLine($"5. Measured Length: {_lengthMeasured}");
-            Console.WriteLine($"6. Measured Width: {_widthMeasured}");
-            Console.WriteLine($"7. Flat Foot approved: {_pathFlatFoot}");
-            Console.WriteLine($"8. Heel Pain approved: {_pathHeelPain}");
-            Console.WriteLine($"9. Hammertoe approved: {_pathHammerToe}");
+            Console.WriteLine($"3. Size: {_sizeShoe}");
+            Console.WriteLine($"4. Width: {_widthShoe}");
+            Console.WriteLine($"5. Measured Length: {_lengthMeasuredShoe}");
+            Console.WriteLine($"6. Measured Width: {_widthMeasuredShoe}");
+            Console.WriteLine($"7. Flat Foot approved: {_pathFlatFootShoe}");
+            Console.WriteLine($"8. Heel Pain approved: {_pathHeelPainShoe}");
+            Console.WriteLine($"9. Hammertoe approved: {_pathHammerToeShoe}");
 
             Console.WriteLine("Enter the number of the item you wish to edit.");
             string selectionString = Console.ReadLine();
@@ -183,11 +201,11 @@ public void EditShoe()
                     bool allDone = false;
                     while (!allDone)
                     {
-                        int number;
+                        float number;
 
-                        if (int.TryParse(newEntry, out number))//using a tryParse to send an error option if a number is not entered
+                        if (float.TryParse(newEntry, out number))//using a tryParse to send an error option if a number is not entered
                         {
-                            _size = number;//parsing is successful
+                            _sizeShoe = number;//parsing is successful
                             allDone = true;
                         }
                         else
@@ -201,25 +219,8 @@ public void EditShoe()
                 break;
 
                 case "4":
-                {
-                    bool allDone = false;
-                    while (!allDone)
-                    {
-                        int number;
-
-                        if (int.TryParse(newEntry, out number))//using a tryParse to send an error option if a number is not entered
-                        {
-                            _width = number;//parsing is successful
-                            allDone = true;
-                        }
-                        else
-                        {
-                            Console.WriteLine("you must enter a number Please Try Again: ");
-                            newEntry = Console.ReadLine();
-                            
-                        }
-                    }
-                }
+                _widthShoe = newEntry;//parsing is successful
+                                     
                 break;
 
                 case "5":
@@ -227,11 +228,11 @@ public void EditShoe()
                     bool allDone = false;
                     while (!allDone)
                     {
-                        int number;
+                        float number;
 
-                        if (int.TryParse(newEntry, out number))//using a tryParse to send an error option if a number is not entered
+                        if (float.TryParse(newEntry, out number))//using a tryParse to send an error option if a number is not entered
                         {
-                            _lengthMeasured = number;//parsing is successful
+                            _lengthMeasuredShoe = number;//parsing is successful
                             allDone = true;
                         }
                         else
@@ -249,11 +250,11 @@ public void EditShoe()
                     bool allDone = false;
                     while (!allDone)
                     {
-                        int number;
+                        float number;
 
-                        if (int.TryParse(newEntry, out number))//using a tryParse to send an error option if a number is not entered
+                        if (float.TryParse(newEntry, out number))//using a tryParse to send an error option if a number is not entered
                         {
-                            _widthMeasured = number;//parsing is successful
+                            _widthMeasuredShoe = number;//parsing is successful
                             allDone = true;
                         }
                         else
@@ -275,7 +276,7 @@ public void EditShoe()
 
                         if (bool.TryParse(newEntry, out result))//using a tryParse to send an error option if bool is not correctly interpreted
                         {
-                            _pathFlatFoot = result;//parsing is successful
+                            _pathFlatFootShoe = result;//parsing is successful
                             allDone = true;
                         }
                         else
@@ -298,7 +299,7 @@ public void EditShoe()
 
                         if (bool.TryParse(newEntry, out result))//using a tryParse to send an error option if bool is not correctly interpreted
                         {
-                            _pathHeelPain = result;//parsing is successful
+                            _pathHeelPainShoe = result;//parsing is successful
                             allDone = true;
                         }
                         else
@@ -320,7 +321,7 @@ public void EditShoe()
 
                         if (bool.TryParse(newEntry, out result))//using a tryParse to send an error option if bool is not correctly interpreted
                         {
-                            _pathHammerToe = result;//parsing is successful
+                            _pathHammerToeShoe = result;//parsing is successful
                             allDone = true;
                         }
                         else
@@ -337,18 +338,12 @@ public void EditShoe()
                 continue;
            }
 
-            // else//if can't parse sectionInt to an int, should display this message and keep in the while loop
-            // {
-            //     Console.WriteLine("You have made an invalid entry, please make a selection from 1-8");//this then runs in a loop and needs to be fixed
-            //     selectionInt = 0;
-            //     done = false;
-
-            // }
+            
         
             Console.WriteLine("Edits have been saved.  Here's the updated shoe: ");
-            //Console.Clear();
+            
             DisplayShoe();
-            //Console.WriteLine();
+           
             Console.WriteLine("Press 'Q' to quit or any other key to edit another item");
             string response = Console.ReadLine();
              

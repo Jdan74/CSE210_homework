@@ -14,27 +14,6 @@ _pathHas = false;//not sure yet if I'll need this
 }    
 //methods
 
-public override void AskAboutPathology()
-{
-    
-    string response = "";
-    Console.WriteLine($"{_pathName} {_pathDescription}");
-    Console.WriteLine($"{_pathQuestion}");
-    Console.WriteLine("Press y for YES or another other key for NO");
-    response = Console.ReadLine().ToLower();
 
-        if (response == "y")
-        {
-            Console.WriteLine("You have entered YES. This condition will be added to your profile");
-            _pathHas = true;
-        }
-        else
-        {
-            Console.WriteLine("You have entered NO. This condition will NOT be added to your profile");
-            //_pathHas = false;//should be default here
-        }
-
-
-}
 
 }

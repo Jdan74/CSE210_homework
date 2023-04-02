@@ -1,0 +1,12 @@
+Nike, Air Jordan 1 Mid, 9, D, 27.5, 9.5, True, False, False
+Adidas, Ultraboost 21, 10.5, E, 28.5, 10.5, True, True, True
+New Balance, 574 Classic, 8.5, 2E, 26.5, 10.5, False, True, False
+ASICS, Gel-Kayano 27, 11.5, D, 29, 10.5, False, True, True
+Brooks, Ghost 13, 12, D, 30, 11.5, True, False, True
+Saucony, Kinvara 12, 9, 4E, 27, 11, True, False, False
+Nike,Air Max 270,8,2A,24.5,8.5,True,False,False
+Adidas,Ultraboost 21,10,4A,27.5,10,True,True,True
+New Balance,Fresh Foam More v3,7,6A,23.5,8,False,True,False
+ASICS,Gel-Nimbus 23,9,2A,26,9.5,False,True,True
+Brooks,Ghost 13,11,2A,28.5,10.5,True,False,True
+Saucony,Ride 13,6.5,4A,22,7.5,True,False,False

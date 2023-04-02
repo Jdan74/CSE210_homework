@@ -17,11 +17,13 @@ class ShoeFitter
     }
 
     //Methods
-    public List<Shoe> RunShoeFitter()
+    public List<Shoe> RunShoeFitter(Foot footProfile, List<Shoe> shoeList)
     {
     
+    
     List<Shoe> _recShoeList = new List<Shoe>();
-
+    
+    
 
     //here we'll do the logic to compare the users foot profile to the shoes in the shoe list and generate a new list of recommended shoes
 
