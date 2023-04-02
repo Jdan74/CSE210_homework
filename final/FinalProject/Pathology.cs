@@ -1,15 +1,14 @@
-class Pathology// a parent class to create the various pathology o
+class Pathology// a parent class to create the various pathology we might be interested in tracking
 {
 protected string _pathName;
 protected string _pathDescription;
 protected string _pathQuestion;
-protected bool _pathHas;//not sure yet if I'll need this
+protected bool _pathHas;
 
-
-//name, affect on shoe fitting (larger toe box for hammertoes), heel pain, needs supportive insert
 //Constructors
 public Pathology ()
 {
+     
 
 }
 public Pathology (string pathName, string pathDescription, string pathQuestion, bool pathHas)
@@ -20,12 +19,56 @@ public Pathology (string pathName, string pathDescription, string pathQuestion, 
     _pathHas = pathHas;
 
 }
+public Pathology (bool pathHas)  // a cosntructor to allow us to bass a bool and 
+{
+   
 
+    _pathHas = pathHas;
+
+}
+//getters and setters - here we are creating properties to access our variables from elsewhere using the dot method
+
+
+public bool PathHas 
+{
+    get {return _pathHas;}
+    set {_pathHas = value;}
+}
+public string PathName 
+{
+    get {return _pathName;}
+    set {_pathName = value;}
+}
+public string PathDescription
+{
+     get {return _pathDescription;}
+    set {_pathDescription = value;}
+}
+public string PathQuestion
+{
+     get {return _pathQuestion;}
+    set {_pathQuestion = value;}
+}
+
+//public List<Pathology>  PathListAll {get ; set;}
 //methods
 
-public virtual void AskAboutPathology()
+
+
+
+public void DisplayPathologyNameDescriptionQuestion()
 {
-    //we'll write the specifics for this in each of the child classes
+ Console.WriteLine($"{_pathName}: {_pathDescription}");
+        Console.WriteLine();
+        Console.WriteLine($"{_pathQuestion}");
+        Console.WriteLine();
+
+}
+
+
+public void DisplayPathologyName()
+{
+ Console.Write($" {_pathName},");
 }
 
 
