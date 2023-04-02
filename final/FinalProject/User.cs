@@ -15,14 +15,21 @@ public User()//created with every new user
     _recShoeList = new List<Shoe>();// a list to hold the shoes recommened for this user    
 }
 
+public User(string nameLast, string nameFirst, Foot footProfile)
+{
+    _nameFirst = nameFirst;
+    _nameLast =  nameLast;
+    _footProfile = footProfile;
+}
 
 public User(string nameLast, string nameFirst, float footLength, float footWidth, bool hasFlatFoot, bool hasHeelPain, bool hasHammerToe)//, List<Pathology> footPathList)
 {
     
     _nameFirst = nameFirst;
     _nameLast =  nameLast;
-    _footProfile = new Foot();//making a foot
 
+    _footProfile = new Foot();//making a foot
+    
     _footProfile.LengthMeasuredFoot = footLength; //passing the measurements to the variables
     _footProfile.WidthMeasuredFoot = footWidth;
 
@@ -38,7 +45,7 @@ public User(string nameLast, string nameFirst, float footLength, float footWidth
 
 }
 
-// getters and setters
+// properties, getters and setters-----------------------------------------------------------------------------------------------------------------------------
 
 public string NameFirst//here I'm trying a different notation that can be used to create a property and then use the property to directly access the private member variable. I like this method as it is easier to type
     {
@@ -63,7 +70,7 @@ public List<Shoe> RecShoeList
     
 
 
-//Methods
+//Methods-----------------------------------------------------------------------------------------------------------------------------
 public void CreateProfile()
 {
 //first create our user info
@@ -85,7 +92,14 @@ _footProfile.CreateFootPathologyList();
 public void DisplayProfileLong()// a method to display the foot profile in a single line format
 
 {
-Console.WriteLine($"{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot}, {_footProfile.PathFlatFootFoot},{_footProfile.PathHeelPainFoot},{_footProfile.PathHammerToeFoot}");
+Console.Write($"{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot},");
+
+foreach (Pathology path in _footProfile.PathListFoot)
+{
+    Console.Write($"{path.PathName},");
+}
+Console.WriteLine();
+//PathFlatFootFoot},{_footProfile.PathHeelPainFoot},{_footProfile.PathHammerToeFoot}");
 }
 
 public void DisplayProfile()
@@ -288,10 +302,14 @@ public string CreateNewUserFileEntry()
 return $"\n{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot},{_footProfile.PathFlatFootFoot},{_footProfile.PathHeelPainFoot},{_footProfile.PathHammerToeFoot}";
 }
 
-public string CreateUserFileEntry()
+public string CreateUserFileEntry(List<User> users)
 
 {
-return $"{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot},{_footProfile.PathFlatFootFoot},{_footProfile.PathHeelPainFoot},{_footProfile.PathHammerToeFoot}";
+//return $"{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot},{_footProfile.PathFlatFootFoot},{_footProfile.PathHeelPainFoot},{_footProfile.PathHammerToeFoot}";
+string a =  $"{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot}";
+string b = Pathology.DisplayUserFootPatholgyList(_footProfile.PathListFoot);
+string c = Pathology.DisplayUserFootPatholgyList(_footProfile.PathListFoot);
+return a + b + c;
 }
 
 }

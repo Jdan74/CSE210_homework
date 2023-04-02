@@ -65,6 +65,18 @@ public void DisplayPathologyNameDescriptionQuestion()
 
 }
 
+public static string DisplayUserFootPatholgyList(List<Pathology> userPathList)
+{
+string pathListString = "";
+ foreach (Pathology path in userPathList)
+    {
+        //return $"{path.PathName},";//this displays the names of each path
+        pathListString = pathListString + path.PathName;
+    
+    }
+
+return pathListString;
+}
 
 public void DisplayPathologyName()
 {

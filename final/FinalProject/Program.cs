@@ -311,7 +311,7 @@ class Program
                     }
                     break;
 
-                    case "7":
+                    case "7"://load the user list
                     bool done3 = false;
                     while (!done3)
                     {
@@ -323,9 +323,43 @@ class Program
                             string[] lines = File.ReadAllLines(file);
                             foreach (string line in lines)
                             {
-                                string[] index = line.Split(",");
-                                User user = new User(index[0], index[1], float.Parse(index[2]), float.Parse(index[3]), bool.Parse(index[4]), bool.Parse(index[5]), bool.Parse(index[6]));
-                                users.Add(user);//adding to our shoe list
+                                string[] index = line.Split(",");//getting the data from index 0-3
+                                string lastName = index[0];
+                                string firstName = index[1];
+                                float footLength = float.Parse(index[2]);
+                                float footWidth = float.Parse(index[3]);
+                                
+                                List<Pathology> listPath = new List<Pathology>();//creating a list of path to populate
+                                for (int x = 4; x < index.Length; x++)//we need to iterate just through the indices after the ones not in a list using the index.Length to read the length of the line
+                                {
+                                    //Pathology pathology = new Pathology();//variable of type Pathology
+                                    string pathtype = index[x];
+                                    if (pathtype == "FlatFoot")
+                                    {
+                                        FlatFoot flatFoot = new FlatFoot();
+                                        listPath.Add(flatFoot);
+                                    }
+                                    else if (pathtype == "HeelPain")
+                                    {
+                                        HeelPain heelPain = new HeelPain();
+                                        listPath.Add(heelPain);
+                                    }
+                                    else if (pathtype == "HammerToes")
+                                    {
+                                        HammerToes hammerToes = new HammerToes();
+                                        listPath.Add(hammerToes);
+                                    }
+                                                            
+                                }
+                                
+                                                      
+                                Foot newFoot = new Foot(footLength,footWidth,listPath.ToArray());// instantiating a foot object. NOTE we had to use the ToArray() method on our list so as to pass each one as an argument 
+                                User userFromFile = new User(lastName,firstName,newFoot);
+
+
+                                //User user = new User(index[0], index[1], float.Parse(index[2]), float.Parse(index[3]), index[4], index[5], index[6]);
+
+                                users.Add(userFromFile);//adding to our shoe list
                             }
                             done3 = true;
                         }
@@ -339,9 +373,7 @@ class Program
                     break;
 
                     
-                    
-                    
-                    
+        
 
                     case "8":
                     Console.WriteLine("Displaying the user list...");
@@ -368,9 +400,10 @@ class Program
 
                         foreach (User user in users)//interate through our list of shoes to write each one to the path
                         {
-                            writer.WriteLine(user.CreateUserFileEntry());//calling our shoe file format method to write each one to the file
-                            
+                            writer.WriteLine(user.CreateUserFileEntry(users));//calling our shoe file format method to write each one to the file
+                        
                         }
+                        
                     }
                     break;
 

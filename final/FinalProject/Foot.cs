@@ -25,9 +25,7 @@ public Foot ()// we need all these objects to instantiate as soon as any Foot ob
     _pathListFoot = new List<Pathology>();// inst an empty list to hold foot specife pathology 
     if (_pathFlatFootFoot.PathHas == true)//looking at the values we instanting this specific list of pathyology that a person has.
     {
-        Console.WriteLine("this person has flat foot patholgy");
-        Thread.Sleep(1000);
-        _pathListFoot.Add(_pathFlatFootFoot);//adding the pathology their person list
+         _pathListFoot.Add(_pathFlatFootFoot);//adding the pathology their person list
         _pathFlatFootFoot.PathHas = true;//setting the value of _pathHas to true
     } 
     if (_pathHeelPainFoot.PathHas == true)
@@ -40,13 +38,16 @@ public Foot ()// we need all these objects to instantiate as soon as any Foot ob
     } 
 
 }
-// public Foot (float lengthMeasuredFoot, float widthMeasuredFoot)//, List<Patholo)
-// {
-//     _lengthMeasuredFoot = lengthMeasuredFoot;
-//     _widthMeasuredFoot = widthMeasuredFoot; 
-// }
+public Foot (float lengthMeasuredFoot, float widthMeasuredFoot, params Pathology[] pathListFoot)//constroctor to take a length, width and any number of pathologies
+{
+    _lengthMeasuredFoot = lengthMeasuredFoot;
+    _widthMeasuredFoot = widthMeasuredFoot; 
+    _pathListFoot = new List<Pathology> (pathListFoot); // we'll the params to allow the constructor to accept any number of pathologies and put them into the list
+}
 
 //Creating Properties and their Getters and setters using one type of get and set method I learned about
+
+
 
 public float LengthMeasuredFoot
 {
@@ -102,17 +103,14 @@ public void DisplayFootProfile()//will display a foot profile
      Console.WriteLine($"    Foot length: {_lengthMeasuredFoot} ");
      Console.WriteLine($"    Foot width: {_widthMeasuredFoot} ");
      Console.Write("    Pathology: ");
-     foreach (Pathology path in _pathListFoot)
-    {
-        if (path.PathHas == true)//although the list will contain all pathologies, we'll display only those pathologies that were reported as true
-        {
-            path.DisplayPathologyName();//here we're using a parent class method but in a polymorphic way as it will iterate through our child classes and display different data
-        }
-        // else
-        // {
-        //     Console.WriteLine("None");
-        // }
-    }
+     Console.Write(Pathology.DisplayUserFootPatholgyList(_pathListFoot));//using our static to get the path list
+     
+    //  foreach (Pathology path in _pathListFoot)
+    // {
+
+    //     path.DisplayPathologyName();//this displase the names of each pat
+       
+    // }
     
 }
 
