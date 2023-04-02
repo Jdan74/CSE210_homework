@@ -4,24 +4,17 @@ using System.IO;
 class Program
 {
    
-
-
     static void Main(string[] args)
     {
                
-    //create our lists to hold the shoes and users
+    
     User newUser = null;// = new User();//instantiating a newUser to use for new proviles or loading a profile
-    //Foot newFoot = new Foot();// inst a new foot
     List<Shoe> shoes = new List<Shoe>();
-    List<User> users = new List<User>();
+    List<User> users = null;// = new List<User>();
     string userFilePath = "";
-
-
-
-
     string input;
     bool exit = false;
-    //bool shoeData = false;
+    
     Console.Clear();
     while (exit == false)// a loop to keep us in the main menu until you want to exit.  We'll use cases for the selections
     {
@@ -59,6 +52,11 @@ class Program
                     {
                         newUser = new User();//instantiating a newUser from the basic constructor
                         newUser.CreateProfile();
+
+                        if (users == null)//check to see if the uses list has already been created or populated
+                        {
+                            users = User.LoadUserListFromFile();
+                        }
                         users.Add(newUser);// maybe we don't want to do this but rather just always ad the user to the file only
                         userFilePath = "users.txt";
                         using (StreamWriter writer = new StreamWriter(userFilePath, true))
@@ -66,8 +64,6 @@ class Program
                             writer.WriteLine(newUser.CreateNewUserFileEntry());//this method will insert new line and add it to the end of the list that is already up
                         }
 
-
-                        //add the user to the end of the file
                     }
                     else
                     {
@@ -78,40 +74,26 @@ class Program
                     
 
                     case "2":
-                    Console.WriteLine("Search and Load a profile");//not working yet
+                    Console.WriteLine("Search for a profile");//not working yet
                     
-                    bool done3 = false;
-                    while (!done3)
+                    
+                    //bool done3 = false;
+
+                    if (users == null)
                     {
-                        userFilePath = "users.txt";
-                        Console.WriteLine("Attempting to load the Default user database...");
-                        
-                        try//using a try catch block to handle if there is no file found
-                        {
-                            string[] lines = File.ReadAllLines(userFilePath);
-                            foreach (string line in lines)
-                            {
-                                string[] index = line.Split(",");
-                                User user = new User(index[0],index[1],float.Parse(index[2]),float.Parse(index[3]),bool.Parse(index[4]),bool.Parse(index[5]),bool.Parse(index[6]));
-                                users.Add(user);//adding to our user list
-
-                                
-                            }
-                            
-                            newUser = User.FindProfile(users);//using a STATIC method here because I want the method to GIVE me and instance that doesn't yet exist.
-                            //passing the users list to our method to find a person
-                            //need to return the user file data here to populate a user
-
-                            done3 = true;
-                        }
-                        catch (FileNotFoundException)//learned to use a try catch block to throw this exception
-                        {
-                            Console.WriteLine("The User file did not load or does not exist...please contact an administator");
-                            done3 = false;//this will keep us in the loop until we write in a legit file.  
-                            //I might want to add an option to escape out of this in case you don't know the main menu
-                        }
+                        Console.WriteLine("the users database has not been loaded yet....wait while it loads...");
+                        Thread.Sleep(2000);
+                        users = User.LoadUserListFromFile();
+                        newUser = User.FindProfile(users);
                     }
-
+                    
+                else
+                {
+                    newUser = User.FindProfile(users);//using a STATIC method here because I want the method to GIVE me and instance that doesn't yet exist.
+                        //passing the users list to our method to find a person
+                        //need to return the user file data here to populate a user
+                }
+                    
 
                     break;
 
@@ -168,7 +150,6 @@ class Program
             }
             break;//break from case 1
 
-                  
             case "2":
             string input2;
             bool exit2 = false;
@@ -312,64 +293,19 @@ class Program
                     break;
 
                     case "7"://load the user list
-                    bool done3 = false;
-                    while (!done3)
+                    if (users == null)
                     {
-                        string file = "";
-                        Console.WriteLine("Please enter a .txt file containg the user database: ");
-                        file = Console.ReadLine();
-                        try//using a try catch block to handle if there is no file found
-                        {
-                            string[] lines = File.ReadAllLines(file);
-                            foreach (string line in lines)
-                            {
-                                string[] index = line.Split(",");//getting the data from index 0-3
-                                string lastName = index[0];
-                                string firstName = index[1];
-                                float footLength = float.Parse(index[2]);
-                                float footWidth = float.Parse(index[3]);
-                                
-                                List<Pathology> listPath = new List<Pathology>();//creating a list of path to populate
-                                for (int x = 4; x < index.Length; x++)//we need to iterate just through the indices after the ones not in a list using the index.Length to read the length of the line
-                                {
-                                    //Pathology pathology = new Pathology();//variable of type Pathology
-                                    string pathtype = index[x];
-                                    if (pathtype == "FlatFoot")
-                                    {
-                                        FlatFoot flatFoot = new FlatFoot();
-                                        listPath.Add(flatFoot);
-                                    }
-                                    else if (pathtype == "HeelPain")
-                                    {
-                                        HeelPain heelPain = new HeelPain();
-                                        listPath.Add(heelPain);
-                                    }
-                                    else if (pathtype == "HammerToes")
-                                    {
-                                        HammerToes hammerToes = new HammerToes();
-                                        listPath.Add(hammerToes);
-                                    }
-                                                            
-                                }
-                                
-                                                      
-                                Foot newFoot = new Foot(footLength,footWidth,listPath.ToArray());// instantiating a foot object. NOTE we had to use the ToArray() method on our list so as to pass each one as an argument 
-                                User userFromFile = new User(lastName,firstName,newFoot);
-
-
-                                //User user = new User(index[0], index[1], float.Parse(index[2]), float.Parse(index[3]), index[4], index[5], index[6]);
-
-                                users.Add(userFromFile);//adding to our shoe list
-                            }
-                            done3 = true;
-                        }
-                        catch (FileNotFoundException)//learned to use a try catch block to throw this exception
-                        {
-                            Console.WriteLine("The File you have reqested does not exist");
-                            done3 = false;//this will keep us in the loop until we write in a legit file.  
-                            //I might want to add an option to escape out of this in case you don't know the main menu
-                        }
+                        Console.WriteLine("The User List is Loading...");
+                        Thread.Sleep(2000);
+                        users = User.LoadUserListFromFile();
                     }
+                    else
+                    {
+                        Console.WriteLine("The User List is already Loaded");
+                        Thread.Sleep(2000);
+                    }
+                    
+                    
                     break;
 
                     
@@ -379,13 +315,22 @@ class Program
                     Console.WriteLine("Displaying the user list...");
                     int i = 1;
 
-                    foreach (User user in users)
-                    {   
-                        Console.Write($"{i}. ");
-                        user.DisplayProfileLong();
-                        i++;
-                        
+                    if (users == null)
+                    {
+                        Console.WriteLine("the users list is null");
+                        Thread.Sleep(2000);
                     }
+                    else
+                    {
+                        foreach (User user in users)
+                        {   
+                            Console.Write($"{i}. ");
+                            user.DisplayProfileLong();
+                            i++;
+                            
+                        }
+                    }
+                    
                     
                     
                     break;
