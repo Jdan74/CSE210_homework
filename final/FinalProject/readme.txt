@@ -1,4 +1,4 @@
-This program is inteded to help someone fine the correct shoe for their Foot. 
+This program is inteded to help someone find the correct shoe for their Foot. 
 It has 2 main menus including User and Admin.  The User is intended for the end user who 
 would want to create a profile or find their previous profile, edit it, or find a shoe that
 fits thier foot.
