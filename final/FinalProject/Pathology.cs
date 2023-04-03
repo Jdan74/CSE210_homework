@@ -3,12 +3,11 @@ class Pathology// a parent class to create the various pathology we might be int
 protected string _pathName;
 protected string _pathDescription;
 protected string _pathQuestion;
-protected bool _pathHas;
 
 //Constructors
 public Pathology ()
 {
-     
+
 
 }
 public Pathology (string pathName, string pathDescription, string pathQuestion, bool pathHas)
@@ -16,24 +15,9 @@ public Pathology (string pathName, string pathDescription, string pathQuestion, 
     _pathName = pathName;
     _pathDescription = pathDescription;
     _pathQuestion = pathQuestion;
-    _pathHas = pathHas;
-
+    
 }
-public Pathology (bool pathHas)  // a cosntructor to allow us to bass a bool and 
-{
-   
 
-    _pathHas = pathHas;
-
-}
-//getters and setters - here we are creating properties to access our variables from elsewhere using the dot method
-
-
-public bool PathHas 
-{
-    get {return _pathHas;}
-    set {_pathHas = value;}
-}
 public string PathName 
 {
     get {return _pathName;}
@@ -50,10 +34,8 @@ public string PathQuestion
     set {_pathQuestion = value;}
 }
 
-//public List<Pathology>  PathListAll {get ; set;}
-//methods
 
-
+//methods----------------------------------------------------------------------------
 
 
 public void DisplayPathologyNameDescriptionQuestion()
@@ -65,17 +47,18 @@ public void DisplayPathologyNameDescriptionQuestion()
 
 }
 
-public static string DisplayUserFootPatholgyList(List<Pathology> userPathList)
+public static string DisplayUserFootPatholgyList(List<Pathology> userPathList)//this is Static so we can call it without instantiation of pathology
 {
 string pathListString = "";
+
  foreach (Pathology path in userPathList)
     {
         //return $"{path.PathName},";//this displays the names of each path
-        pathListString = pathListString + path.PathName;
+        pathListString = pathListString + path.PathName + ",";//concatinating the list of pathology
     
     }
 
-return pathListString;
+    return pathListString;
 }
 
 public void DisplayPathologyName()

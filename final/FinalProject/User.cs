@@ -4,15 +4,14 @@ class User
 //variables
 private string _nameFirst;
 private string _nameLast;
-private Foot _footProfile;
-private List<Shoe> _recShoeList;
+private Foot _footProfile = new Foot();
+//private List<Shoe> _recShoeList = new List<Shoe>();//could use this in the future, to save their shoe list in their profile
 
 
 //constuctors - here we'll instantiate the objects we need for every user
 public User()//created with every new user
 {
-    _footProfile = new Foot();//making a foot
-    _recShoeList = new List<Shoe>();// a list to hold the shoes recommened for this user    
+    
 }
 
 public User(string nameLast, string nameFirst, Foot footProfile)
@@ -20,30 +19,9 @@ public User(string nameLast, string nameFirst, Foot footProfile)
     _nameFirst = nameFirst;
     _nameLast =  nameLast;
     _footProfile = footProfile;
+    
 }
 
-public User(string nameLast, string nameFirst, float footLength, float footWidth, bool hasFlatFoot, bool hasHeelPain, bool hasHammerToe)//, List<Pathology> footPathList)
-{
-    
-    _nameFirst = nameFirst;
-    _nameLast =  nameLast;
-
-    _footProfile = new Foot();//making a foot
-    
-    _footProfile.LengthMeasuredFoot = footLength; //passing the measurements to the variables
-    _footProfile.WidthMeasuredFoot = footWidth;
-
-    _footProfile.PathFlatFootFoot = hasFlatFoot; //passing the pathologies to the foot profile based on the bools
-    // if (hasFlatFoot == true)
-    // {
-    //     _footProfile.PathFlatFootFoot.PathHas = true;
-    // }
-
-    _footProfile.PathHeelPainFoot = hasHeelPain;
-    _footProfile.PathHammerToeFoot = hasHammerToe;
-    // these values should allow for creating of the list of pathology in the pathology constructor
-
-}
 
 // properties, getters and setters-----------------------------------------------------------------------------------------------------------------------------
 
@@ -62,11 +40,11 @@ public Foot FootProfile
     get => _footProfile;
     set => _footProfile = value;
 }
-public List<Shoe> RecShoeList
-{
-    get => _recShoeList;
-    set => _recShoeList = value;
-}
+// public List<Shoe> RecShoeList
+// {
+//     get => _recShoeList;
+//     set => _recShoeList = value;
+// }
     
 
 
@@ -130,61 +108,43 @@ public void DisplayProfile()
 
 }
 
-public static User FindProfile(List<User> users)
+public User FindProfile(List<User> users)
 {
 bool userFoundBool = false;
-User userFound = new User();//inst a new user to use if we find a match
-    
-    //while (!userFoundBool)
+User userFound;// = new User();//inst a new user to use if we find a match
     
         Console.WriteLine("What is the first name?");
         string nameFirst = Console.ReadLine();
         Console.WriteLine("What is the last name?");
         string nameLast = Console.ReadLine();
-
                     
                 foreach (User user in users)
                 {
                     if(user._nameLast == nameLast && user._nameFirst == nameFirst)
                     {
-                        userFound = user;//setting our userFound to the user
-                
+                        userFound = new User(user._nameLast, user._nameFirst, user.FootProfile);//try to use the same constructor so we can keep one instance going?
+                            //user;//setting our userFound to the user
+                        userFound.DisplayProfileLong();
+                        Thread.Sleep(2000);
                         userFoundBool = true;
-
+                        return userFound;
+                    }
+                    else
+                    {
+                        return null;
                     }
                     //else will default to false
                 }    
                     
-                if (userFoundBool == true)
-
+                if (userFoundBool == false)
                 {
-                    //userFound.DisplayProfile();
-                    userFound.DisplayProfileLong();
-                    Thread.Sleep(2000);
-
-                }
-
-                else
-                {
-
                     Console.Write("...no match, going back to menu, feel free to try again");
                     Thread.Sleep(2000);
-                    
+                    //userFound.DisplayProfile();
+                   return null;
                 }
-                       
-                        
-                
-
-                
-        
-            
-        
-
-    
-    
-    return userFound;
+            return null;
 }
-
 public void EditProfile()
 {
 
@@ -193,7 +153,7 @@ public void EditProfile()
     {
 
         Console.Clear();
-        Console.WriteLine("Here is your profile.\nEnter the number of the item you wish to edit, or any other key to quit the editing menu.");
+        Console.WriteLine("Here is your profile. Enter the number of the item you wish to edit, or any other key to quit the editing menu.");
 
         Console.WriteLine($"1.  Name: {_nameFirst} {_nameLast}");
       
@@ -253,42 +213,9 @@ public void EditProfile()
                     Console.WriteLine("You have made an ivalid entry");
                 }
 
-
-
             }
             
-            
-            
-            // else if (choice =="3")
-            // {
-                
-                
-                
-            //     Console.WriteLine("Enter the new foot length:");
-            //     _footProfile.LengthMeasuredFoot = int.Parse(Console.ReadLine());
         
-            // }
-            // else if (choice =="4")
-            // {
-            //     Console.WriteLine("Enter the new foot width");
-            //     _footProfile.WidthMeasuredFoot = int.Parse(Console.ReadLine());
-            // }
-            // else if (choice == "5")
-            // {
-            //     Console.WriteLine("Choose the item of pathology you whish to change; ");
-                
-            //     foreach (Pathology path in _footProfile.PathListFoot)
-            //     {
-            //         int i = 1;
-            //         if (path.PathHas == true)//list out the true pathologies with numbers
-            //         {
-            //             Console.WriteLine($"{i}. {path.PathName} ");
-            //             i++;
-            //         }
-            //     }
-                
-
-            // }
             else 
             {
                 done = true;
@@ -296,20 +223,90 @@ public void EditProfile()
     }
 
 }
-public string CreateNewUserFileEntry()
+
+
+public string CreateUserFileEntry()//List<User> users)
 
 {
-return $"\n{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot},{_footProfile.PathFlatFootFoot},{_footProfile.PathHeelPainFoot},{_footProfile.PathHammerToeFoot}";
-}
-
-public string CreateUserFileEntry(List<User> users)
-
-{
-//return $"{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot},{_footProfile.PathFlatFootFoot},{_footProfile.PathHeelPainFoot},{_footProfile.PathHammerToeFoot}";
-string a =  $"{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot}";
+string a =  $"{_nameLast},{_nameFirst},{_footProfile.LengthMeasuredFoot},{_footProfile.WidthMeasuredFoot},";
 string b = Pathology.DisplayUserFootPatholgyList(_footProfile.PathListFoot);
-string c = Pathology.DisplayUserFootPatholgyList(_footProfile.PathListFoot);
-return a + b + c;
+return a + b;
 }
 
+public static List<User> LoadUserListFromFile()
+{
+    bool done3 = false;
+    List<User> users = new List<User>();
+    while (!done3)
+    {
+        string userFilePath = "newusers.txt";
+                                
+                                
+        Console.WriteLine("Attempting to load the Default user database...");
+                                
+        try//using a try catch block to handle if there is no file found
+        {
+            string[] lines = File.ReadAllLines(userFilePath);
+                                                    
+            foreach (string line in lines)
+            {
+                string[] index = line.Split(",");//getting the data from index 0-3
+                string lastName = index[0];
+                string firstName = index[1];
+                float footLength = float.Parse(index[2]);
+                float footWidth = float.Parse(index[3]);
+                
+                List<Pathology> listPath = new List<Pathology>();//creating a list of path to populate
+                for (int x = 4; x < index.Length; x++)//we need to iterate just through the indices after the ones not in a list using the index.Length to read the length of the line
+                {
+                    
+                    string pathtype = index[x];
+                    if (pathtype == "Flat Feet")
+                    {
+                        FlatFoot flatFoot = new FlatFoot();
+                        listPath.Add(flatFoot);
+                    }
+                    else if (pathtype == "Heel Pain")
+                    {
+                        HeelPain heelPain = new HeelPain();
+                        listPath.Add(heelPain);
+                    }
+                    else if (pathtype == "Hammer Toes")
+                    {
+                        HammerToes hammerToes = new HammerToes();
+                        listPath.Add(hammerToes);
+                    }
+                                            
+                }
+                
+                Foot newFoot = new Foot(footLength,footWidth,listPath.ToArray());// instantiating a foot object. NOTE we had to use the ToArray() method on our list so as to pass each one as an argument 
+                User userFromFile = new User(lastName,firstName,newFoot);
+                
+                users.Add(userFromFile);//adding to our user list
+                
+            }
+                                    
+
+            done3 = true;
+            
+        }
+
+        catch (FileNotFoundException)//learned to use a try catch block to throw this exception
+        {
+            Console.WriteLine("The User file did not load or does not exist...please contact an administator");
+            done3 = false;//this will keep us in the loop until we write in a legit file.  
+            //I might want to add an option to escape out of this in case you don't know the main menu
+            return null;
+        }
+
+
+
+    }
+                        
+return users;
+
+}
+
+
+    
 }

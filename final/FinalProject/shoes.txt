@@ -1,12 +1,10 @@
-Nike, Air Jordan 1 Mid, 9, D, 27.5, 9.5, True, False, False
-Adidas, Ultraboost 21, 10.5, E, 28.5, 10.5, True, True, True
-New Balance, 574 Classic, 8.5, 2E, 26.5, 10.5, False, True, False
-ASICS, Gel-Kayano 27, 11.5, D, 29, 10.5, False, True, True
-Brooks, Ghost 13, 12, D, 30, 11.5, True, False, True
-Saucony, Kinvara 12, 9, 4E, 27, 11, True, False, False
-Nike,Air Max 270,8,2A,24.5,8.5,True,False,False
-Adidas,Ultraboost 21,10,4A,27.5,10,True,True,True
-New Balance,Fresh Foam More v3,7,6A,23.5,8,False,True,False
-ASICS,Gel-Nimbus 23,9,2A,26,9.5,False,True,True
-Brooks,Ghost 13,11,2A,28.5,10.5,True,False,True
-Saucony,Ride 13,6.5,4A,22,7.5,True,False,False
+Nike,Air Max 270,8,M,26.5,9.5,Flat Feet
+Adidas,Ultra Boost,9.5,W,28,10.5,Heel Pain
+Puma,Clyde Court,11.5,M,29.5,10,Heel Pain
+New Balance,990v5,10.5,D,28.5,10,Hammer Toes
+Under Armour,HOVR Phantom,9.5,E,27.5,10.5,Heel Pain
+Brooks,Glycerin 19,7.5,B,25,8.5,Flat Feet,Heel Pain,Hammer Toes
+Asics,Gel-Kayano 28,10.5,D,28.5,10.5,Flat Feet,Hammer Toes
+Reebok,Club C 85,8.5,W,26.5,9
+Saucony,Ride 14,9,D,27.5,9.5,Flat Feet,Heel Pain
+Mizuno,Wave Rider 25,11,E,29,10.5,Hammer Toes

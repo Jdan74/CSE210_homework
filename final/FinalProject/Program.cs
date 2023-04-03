@@ -7,10 +7,12 @@ class Program
     static void Main(string[] args)
     {
                
-    
+    Shoe newShoe = null;
     User newUser = null;// = new User();//instantiating a newUser to use for new proviles or loading a profile
-    List<Shoe> shoes = new List<Shoe>();
+    List<Shoe> shoes = null;//new List<Shoe>();
     List<User> users = null;// = new List<User>();
+    List<Shoe> recShoes = new List<Shoe>();//makeing a new list to hold the shoe recommenddations from our shoefitter
+    ShoeFitter shoeFitter = new ShoeFitter();
     string userFilePath = "";
     string input;
     bool exit = false;
@@ -34,18 +36,17 @@ class Program
             {           
                 Console.Clear();
                 Console.WriteLine("Welcome to the user menu.  Please make a selection.");
-                Console.WriteLine("1. Create your profile");
-                Console.WriteLine("2. Search and load your profile");
-                Console.WriteLine("3. View your profile");
-                Console.WriteLine("4. Edit your profile");
-                Console.WriteLine("5. Delete your profile ");//not working yet
-                Console.WriteLine("6. Find A Shoe that Fits ");//not working yet
-                Console.WriteLine("7. View your recommended Shoe List");//not working yet
-                Console.WriteLine("8. Exit to main menu");
+                Console.WriteLine("1. Create your profile");//working
+                Console.WriteLine("2. Search and load your profile");//working
+                Console.WriteLine("3. View your profile");//working
+                Console.WriteLine("4. Edit your profile");//working but won't edit pathology correctly at times...i think it's an instance issue?
+                Console.WriteLine("5. Run the Shoe Fitting Program ");//working
+                Console.WriteLine("6. View your recommended Shoe List");//working
+                Console.WriteLine("7. Exit to main menu");//working
                 input1 = Console.ReadLine();
                 switch (input1)
                 {
-                    case "1":
+                    case "1"://create a profile=================================working
                     Console.WriteLine("Create a profile");
                     
                     if (newUser == null)//check to see if we have already instantiated a newUser so they can't make 2 profiles.
@@ -58,42 +59,52 @@ class Program
                             users = User.LoadUserListFromFile();
                         }
                         users.Add(newUser);// maybe we don't want to do this but rather just always ad the user to the file only
-                        userFilePath = "users.txt";
+                        userFilePath = "newusers.txt";
                         using (StreamWriter writer = new StreamWriter(userFilePath, true))
                         {
-                            writer.WriteLine(newUser.CreateNewUserFileEntry());//this method will insert new line and add it to the end of the list that is already up
+                            writer.WriteLine(newUser.CreateUserFileEntry());//this method will insert new line and add it to the end of the list that is already up
                         }
 
                     }
                     else
                     {
                         Console.WriteLine("You're profile has already been created!  Please Select Edit if you need to make changes.");
-                        Thread.Sleep(1000);
+                        Thread.Sleep(2000);
                     }
+                    
                     break;//break from case 1
                     
 
                     case "2":
-                    Console.WriteLine("Search for a profile");//not working yet
+                    Console.WriteLine("Search for a profile");
                     
                     
-                    //bool done3 = false;
-
-                    if (users == null)
+                    if (newUser == null)
                     {
-                        Console.WriteLine("the users database has not been loaded yet....wait while it loads...");
+                        if (users == null)
+                        {
+                            Console.WriteLine("Loading the User Database...");
+                            Thread.Sleep(2000);
+                            users = User.LoadUserListFromFile();//using our static User Class method to get the users list from our default file
+                            newUser = new User();
+
+                            newUser = newUser.FindProfile(users);//now using our static User Class method to find the user we want and set it to newUser
+                        }
+                   
+                        else
+                        {
+                            newUser = newUser.FindProfile(users);//using a STATIC method here because I want the method to GIVE me and instance that doesn't yet exist.
+                                //passing the users list to our method to find a person
+                                //need to return the user file data here to populate a user
+                        }
+
+                    } 
+                   
+                    else
+                    {
+                        Console.WriteLine("Your profile is already Loaded.");
                         Thread.Sleep(2000);
-                        users = User.LoadUserListFromFile();
-                        newUser = User.FindProfile(users);
                     }
-                    
-                else
-                {
-                    newUser = User.FindProfile(users);//using a STATIC method here because I want the method to GIVE me and instance that doesn't yet exist.
-                        //passing the users list to our method to find a person
-                        //need to return the user file data here to populate a user
-                }
-                    
 
                     break;
 
@@ -120,25 +131,65 @@ class Program
                     newUser.EditProfile();
                     break;//break from case 2
 
+                    
                     case "5":
-                    Console.WriteLine("Delete your profile");//not working yet
+                    if (newUser != null && shoes != null)
+                    {
+                        Console.WriteLine("Let's find A Shoe that Fits");//not working yet
+                        Console.WriteLine("Running the Shoe Fitting Program....");
+                        Thread.Sleep(2000);
+                        
+                        recShoes= shoeFitter.RunShoeFitter(newUser.FootProfile, shoes);
+                
+                        shoeFitter.DisplayShoeFitterList(recShoes);
+                        Console.WriteLine("press any key to leave this list...");
+                        Console.ReadKey();
+                        
+                    }
+                    else if (newUser == null && shoes !=null)
+                    {
+                        Console.Write("You must first create or open a profile");
+                        Thread.Sleep(2000);
+                    }
+                    else if (newUser != null && shoes ==null)
+                    {
+                        Console.Write("There is no Shoe database Open, please contact an administrator to load the file from the admin menu");
+                        Thread.Sleep(2000);
 
-
-                    break;//break fromcase 3
+                    }
+                    else
+                    {
+                        Console.WriteLine("You must first create or open a profile...AND...");
+                        Console.WriteLine ("There is no Shoe database Open, please contact an administrator to load the file from the admin menu");
+                        Thread.Sleep(3000);
+                    }
+                    
+        
+                    break;//break fromcase 5
                     
                     case "6":
-                    Console.WriteLine("Find A Shoe that Fits");//not working yet
-                    break;//break fromcase 3
-                    
-                    case "7":
-                    Console.WriteLine("View your recommended Shoe List");//not working yet
-                    break;//break fromcase 3
+                    Console.WriteLine("View your recommended Shoe List");//working 
+                    if (recShoes != null)
+                    {
+                        shoeFitter.DisplayShoeFitterList(recShoes);
+                        Console.WriteLine("press any key to leave this list...");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have not yet run the Shoe Finder Program....");
+                        Thread.Sleep(2000);
+                    }
 
-                    case "8":
-                    Console.WriteLine("4. Exit to main menu");//not working yet
+
+                    
+                    break;//break fromcase 6
+
+                    case "7":
+                    Console.WriteLine("4. Exit to main menu");//working
                     exit1 = true;//allow us to exit the loop
                     Console.Clear();
-                    break;//break from case 4 and exit the loop
+                    break;//break from case 7
 
                     
                     default:
@@ -156,75 +207,121 @@ class Program
             while (exit2 == false)// a loop2 for this menu and add logic to see if we have already instantiated a user?
             {
                 Console.WriteLine("Welcome to the Admin menu.  Please make a selection.");
-                Console.WriteLine("1. Add a shoe to the database");
-                Console.WriteLine("2. Delete a shoe in the database");
-                Console.WriteLine("3. Display shoes list");
-                Console.WriteLine("4. Edit a shoe in the Database");
-                Console.WriteLine("5. Load a Shoe File");
-                Console.WriteLine("6. Save a Shoe File");
-                Console.WriteLine("7. Load a User List");
-                Console.WriteLine("8. Display the User List");
-                Console.WriteLine("9. Save the User List");
-                Console.WriteLine("0. Exit");
+                Console.WriteLine("1. Add a shoe to the database");//working
+                Console.WriteLine("2. Delete a shoe in the database");//working
+                Console.WriteLine("3. Display shoes list");//working
+                Console.WriteLine("4. Edit a shoe in the Database");// working except for not the path update
+                Console.WriteLine("5. Load a Shoe File");//working
+                Console.WriteLine("6. Save the Shoe File");//working
+                Console.WriteLine("7. Load a User List");//working
+                Console.WriteLine("8. Display the User List");//working
+                Console.WriteLine("9. Save the User List");//working
+                Console.WriteLine("0. Exit");//working
                 input2 = Console.ReadLine();
                 switch(input2)
                 {
                     case "1"://functioning
-                    Console.WriteLine("Add a shoe to the database");
-                    Shoe newShoe = new Shoe();
-                    newShoe.CreateShoe();
-                    shoes.Add(newShoe);
-                    //shoeData = true;
-                
+                    if (shoes != null)
+                    {
+
+                        if (newShoe == null)
+                        {
+                            Console.WriteLine("Add a new shoe to the database");
+                            newShoe = new Shoe();
+                            newShoe.CreateShoe();
+                            //shoes = new List<Shoe>();//inst our list
+                            shoes.Add(newShoe);
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("a newShoe has already been created.  You must first Save the Shoe File in order to enter a new one");
+                        }
+                                           
+                    }
+
+                    else//shoes is null so we need to open the file first
+                    {
+                        Console.WriteLine("To create a shoe you must Load a Shoe File");
+                        Thread.Sleep(2000);
+                    }
+                    
+                    
+                    
                     break;//break from case 1
                 
                     
                     case "2"://functioning
-                    Console.WriteLine("Delete a shoe in the database");
-                    Console.WriteLine();
-                    Console.WriteLine("Dispaying the Numbered Shoes List...");
-                    Console.WriteLine();
-                    int index1 = 1;
-                    foreach (Shoe shoe in shoes)
+                    if (shoes != null)
                     {
-                        Console.Write($"{index1}. ");
-                        shoe.DisplayShoe();
-                        index1++;
-                    }
-                    Console.WriteLine("Enter the number of the shoe you wish to remove");
-                    int choice;
-                    choice = int.Parse(Console.ReadLine());//NO logic here yet to control for wrong entries
-                    shoes.RemoveAt(choice - 1);
-                    Console.WriteLine($"Shoe number {choice} has been removed from the list.");
+                        Console.WriteLine("Delete a shoe in the database");
+                        Console.WriteLine();
+                        Console.WriteLine("Dispaying the Numbered Shoes List...");
+                        Console.WriteLine();
+                        int index1 = 1;
+                        foreach (Shoe shoe in shoes)
+                        {
+                            Console.Write($"{index1}. ");
+                            shoe.DisplayShoeDetails();
+                            index1++;
+                        }
+                        Console.WriteLine("Enter the number of the shoe you wish to remove");
+                        int choice;
+                        choice = int.Parse(Console.ReadLine());//NO logic here yet to control for wrong entries
+                        shoes.RemoveAt(choice - 1);
+                        Console.WriteLine($"Shoe number {choice} has been removed from the list.");
 
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please Load the Shoe Database first!");
+                        Thread.Sleep(2000);
+                    }
+
+
+                    
                     break;//break from case 3
                     
                     case "3"://functioning
-                    Console.WriteLine("Dispaying the Numbered Shoes List...");
-                    Console.WriteLine();
-                    int index2 = 1;
-                    foreach (Shoe shoe in shoes)
+                    if (shoes != null)
                     {
-                        Console.Write($"{index2}. ");
-                        shoe.DisplayShoe();
-                        index2++;
+                        Console.WriteLine("Dispaying the Numbered Shoes List...");
+                        Console.WriteLine();
+                        int index2 = 1;
+                        foreach (Shoe shoe in shoes)
+                        {
+                            Console.Write($"{index2}. ");
+                            shoe.DisplayShoeDetails();
+                            index2++;
+                        }
                     }
+                    else
+                    {
+                        Console.WriteLine("Please Load a shoe database first...");
+                        Thread.Sleep(2000);
+                    }
+
+                   
                     break;//break from case 4
                     
                     case "4"://functioning
-                    int index3 = 1;
-                    Console.WriteLine("Edit a shoe in the Database");
-                    Console.WriteLine("Displaying the Numbered Shoe List...");// need logic here to handle if database is empty?
+
+                    if (shoes != null)
+                    {
+                        int index3 = 1;
+                        Console.WriteLine("Edit a shoe in the Database");
+                        Console.WriteLine("Displaying the Numbered Shoe List...");// need logic here to handle if database is empty?
                     
                   
                         foreach (Shoe shoe in shoes)
                         {
                 
                             Console.Write($"{index3}. ");
-                            shoe.DisplayShoe();
+                            shoe.DisplayShoeDetails();
                             index3++;
                         
                         }
+                        
                         bool done2 = false;
                         while (!done2)
                         {
@@ -244,36 +341,85 @@ class Program
                                 done2 = false;
                             }
                         }
-                         
-                    
-                       break;
-                    
-                    case "5"://functioning
-                    
-                    bool done1 = false;
-                    while (!done1)
+                    }
+                    else
                     {
-                        string file = "";
-                        Console.WriteLine("Please enter a .txt file containg the shoe database: ");
-                        file = Console.ReadLine();
-                        try//learned about and decided to use a try catch block to handle if there is no file found
+                        Console.WriteLine("Please Load a valid shoe list!");
+                        Thread.Sleep(2000);
+                    }
+                    
+                    break;
+                    
+                    case "5"://load a shoe file
+                    if (shoes == null)
+                    {
+                        
+                        bool done1 = false;
+                        while (!done1)
                         {
-                            string[] lines = File.ReadAllLines(file);
-                            foreach (string line in lines)
+                            string file = ""; 
+                            shoes = new List<Shoe>();
+                            Console.WriteLine("Please enter a .txt file containg the shoe database: ");
+                            file = Console.ReadLine();
+                            try//learned about and decided to use a try catch block to handle if there is no file found
                             {
-                                string[] index = line.Split(",");
-                                Shoe shoe = new Shoe(index[0], index[1], float.Parse(index[2]), (index[3]), float.Parse(index[4]), float.Parse(index[5]), bool.Parse(index[6]), bool.Parse(index[7]), bool.Parse(index[8]));
-                                shoes.Add(shoe);//adding to our shoe list
+                                string[] lines = File.ReadAllLines(file);
+                                foreach (string line in lines)
+                                {
+                                    string[] index = line.Split(",");
+                                    string shoeBrand = index[0];
+                                    string shoeModel = index[1];
+                                    float shoeLength = float.Parse(index[2]);
+                                    string shoeWidth = index[3];
+                                    float shoeLengthMeasured = float.Parse(index[4]);
+                                    float shoeWidthMeasured = float.Parse(index[5]);
+
+                                    List<Pathology> listPathShoe = new List<Pathology>();
+                                    for (int x = 6; x < index.Length; x++)// a for loop to get through any other pathology objects 
+                                    {
+                                        string pathtype = index[x];
+
+                                        if (pathtype == "Flat Feet")
+                                        {
+                                            FlatFoot flatFoot = new FlatFoot();
+                                            listPathShoe.Add(flatFoot);
+                                        }
+                                        else if (pathtype == "Heel Pain")
+                                        {
+                                            HeelPain heelPain = new HeelPain();
+                                            listPathShoe.Add(heelPain);
+                                        }
+                                        else if (pathtype == "Hammer Toes")
+                                        {
+                                            HammerToes hammerToes = new HammerToes();
+                                            listPathShoe.Add(hammerToes);
+                                        }
+
+                                
+                                    
+                                    }
+                                    newShoe = new Shoe(shoeBrand,shoeModel,shoeLength,shoeWidth,shoeLengthMeasured,shoeWidthMeasured,listPathShoe.ToArray());
+                                    shoes.Add(newShoe);//adding to our shoe list
+                                                    
+                                    
+                                }
+                                done1 = true;
                             }
-                            done1 = true;
-                        }
-                        catch (FileNotFoundException)//leaned to use a try catch block to throw this exception
-                        {
-                            Console.WriteLine("The File you have reqested does not exit");
-                            done1 = false;//this will keep us in the loop until we write in a legit file.  
-                            //I might want to add an option to escape out of this in case you don't know the main menu
+                            catch (FileNotFoundException)//leaned to use a try catch block to throw this exception
+                            {
+                                Console.WriteLine("The File you have reqested does not exit");
+                                done1 = false;//this will keep us in the loop until we write in a legit file.  
+                                //I might want to add an option to escape out of this in case you don't know the main menu
+                            }
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine("A shoe file is already open...");
+                        Thread.Sleep(2000);
+                    }
+                    
+                    newShoe = null;////////////////////this should all for a newShoe to me created again
                     break;
                     
                     case "6"://functioning -- saving the shoe list to the shoe file
@@ -285,12 +431,14 @@ class Program
 
                         foreach (Shoe shoe in shoes)//interate through our list of shoes to write each one to the path
                         {
-                            writer.WriteLine(shoe.CreateShoeFileEntry());//calling our shoe file format method to write each one to the file
+                            writer.WriteLine(shoe.CreateNewShoeFileEntry());//calling our shoe file format method to write each one to the file
                             
                         }
-
                     }
+                    newShoe = null;/////////////////// I think this will work to make the newShoe null again after the list of shoes has been saved.
                     break;
+
+
 
                     case "7"://load the user list
                     if (users == null)
@@ -304,12 +452,8 @@ class Program
                         Console.WriteLine("The User List is already Loaded");
                         Thread.Sleep(2000);
                     }
-                    
-                    
+                
                     break;
-
-                    
-        
 
                     case "8":
                     Console.WriteLine("Displaying the user list...");
@@ -331,8 +475,6 @@ class Program
                         }
                     }
                     
-                    
-                    
                     break;
 
                     case "9"://saving the user list to a file
@@ -345,14 +487,12 @@ class Program
 
                         foreach (User user in users)//interate through our list of shoes to write each one to the path
                         {
-                            writer.WriteLine(user.CreateUserFileEntry(users));//calling our shoe file format method to write each one to the file
+                            writer.WriteLine(user.CreateUserFileEntry());//calling our shoe file format method to write each one to the file
                         
                         }
                         
                     }
                     break;
-
-
 
 
                     case "0"://functioning 
@@ -363,9 +503,6 @@ class Program
                     default://this is what is said if none of the cases are selected
                     Console.WriteLine("you have made an invalid selection.");
                     continue;  //this will put us back at the beginning of this loop again
-
-                    
-
 
                 }
             }
@@ -386,10 +523,6 @@ class Program
    
     }
     
-    
     }
-
-
-
 
 }
